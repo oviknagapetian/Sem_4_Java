@@ -4,39 +4,64 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        // Создание LinkedList
-        LinkedList<String> linkedList = new LinkedList<>();
+        // Пример использования методов для переворота списка и работы с очередью
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
 
-        // Добавление элементов в конец списка
-        linkedList.add("Apple");
-        linkedList.add("Banana");
-        linkedList.add("Orange");
+        // Переворачиваем список
+        LinkedList<Integer> reversedList = reverseLinkedList(list);
+        System.out.println("Перевернутый список: " + reversedList);
 
-        // Добавление элемента в определенную позицию
-        linkedList.add(1, "Mango");
+        // Работа с очередью
+        QueueLinkedList<Integer> queue = new QueueLinkedList<>();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
 
-        // Получение элемента по индексу
-        String firstElement = linkedList.get(0);
-        String lastElement = linkedList.get(linkedList.size() - 1);
+        System.out.println("Первый элемент в очереди: " + queue.first());
 
-        System.out.println("Первый элемент: " + firstElement);
-        System.out.println("Последний элемент: " + lastElement);
+        int dequeuedElement = queue.dequeue();
+        System.out.println("Извлеченный элемент из очереди: " + dequeuedElement);
 
-        // Итерация по элементам списка
-        System.out.println("Элементы списка:");
-        for (String fruit : linkedList) {
-            System.out.println(fruit);
+        System.out.println("Первый элемент в очереди после извлечения: " + queue.first());
+    }
+
+    // Метод для переворота LinkedList
+    private static LinkedList<Integer> reverseLinkedList(LinkedList<Integer> list) {
+        LinkedList<Integer> reversedList = new LinkedList<>();
+
+        for (Integer element : list) {
+            reversedList.addFirst(element);
         }
 
-        // Удаление элемента по значению
-        linkedList.remove("Banana");
+        return reversedList;
+    }
 
-        // Удаление элемента по индексу
-        linkedList.remove(0);
+    // Класс реализации очереди на основе LinkedList
+    private static class QueueLinkedList<E> {
+        private LinkedList<E> queue;
 
-        System.out.println("Список после удаления:");
-        for (String fruit : linkedList) {
-            System.out.println(fruit);
+        public QueueLinkedList() {
+            queue = new LinkedList<>();
+        }
+
+        // Добавление элемента в конец очереди
+        public void enqueue(E element) {
+            queue.addLast(element);
+        }
+
+        // Извлечение и удаление первого элемента из очереди
+        public E dequeue() {
+            return queue.pollFirst();
+        }
+
+        // Получение первого элемента из очереди без его удаления
+        public E first() {
+            return queue.peekFirst();
         }
     }
 }
